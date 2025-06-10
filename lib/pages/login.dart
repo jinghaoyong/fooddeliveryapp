@@ -40,14 +40,24 @@ class _LogInState extends State<LogIn> {
               ),
               child: Text(""),
             ),
-            Column(
-              children: [
-                Image.asset(
-                  "images/logo.png",
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width / 1.5,
-                ),
-              ],
+            Container(
+              margin: EdgeInsets.only(top: 60.0),
+              child: Column(
+                children: [
+                  Center(
+                    child: Image.asset(
+                      "images/logo.png",
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                    ),
+                    // Container(
+                    //   child: Column(
+                        
+                    //   ),
+                    // )
+                  ),
+                ],
+              ),
             ),
           ],
         ),
