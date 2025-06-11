@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/widget/widget_support.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -41,7 +42,7 @@ class _LogInState extends State<LogIn> {
               child: Text(""),
             ),
             Container(
-              margin: EdgeInsets.only(top: 60.0),
+              margin: EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
               child: Column(
                 children: [
                   Center(
@@ -50,11 +51,30 @@ class _LogInState extends State<LogIn> {
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width / 1.5,
                     ),
-                    // Container(
-                    //   child: Column(
-                        
-                    //   ),
-                    // )
+                  ),
+                  SizedBox(height: 50),
+                  Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 2,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 30),
+                          Text(
+                            "Login",
+                            style: AppWidget.headerlineTextFeildStyle(),
+                          ),
+                          TextField(),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
