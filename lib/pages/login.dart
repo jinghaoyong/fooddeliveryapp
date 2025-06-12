@@ -71,10 +71,62 @@ class _LogInState extends State<LogIn> {
                             "Login",
                             style: AppWidget.headerlineTextFeildStyle(),
                           ),
-                          TextField(),
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                              prefixIcon: Icon(Icons.email_outlined),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                              prefixIcon: Icon(Icons.password_outlined),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                              "Forgot Password?",
+                              style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                          SizedBox(height: 80),
+                          Material(
+                            elevation: 5.0,
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              width: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.orange,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "LOGIN",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontFamily: 'Rubik',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                  ),
+                  SizedBox(height: 70,),
+                  Text(
+                    "Don't have an account? Sign up",
+                    style: AppWidget.semiBoldTextFeildStyle(),
                   ),
                 ],
               ),
