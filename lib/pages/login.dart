@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/pages/signup.dart';
 import 'package:fooddeliveryapp/widget/widget_support.dart';
 
 class LogIn extends StatefulWidget {
@@ -123,10 +124,18 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 70,),
-                  Text(
-                    "Don't have an account? Sign up",
-                    style: AppWidget.semiBoldTextFeildStyle(),
+                  SizedBox(height: 70),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+                    },
+                    child: Text(
+                      "Don't have an account? Sign up",
+                      style: AppWidget.semiBoldTextFeildStyle(),
+                    ),
                   ),
                 ],
               ),
