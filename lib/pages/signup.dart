@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/pages/bottomnav.dart';
 import 'package:fooddeliveryapp/pages/login.dart';
 import 'package:fooddeliveryapp/widget/widget_support.dart';
 
@@ -10,6 +12,63 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String email = "", password = "", name = "";
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+
+  final _formkey = GlobalKey<FormState>();
+
+  registration() async {
+    if (password != null) {
+      print("🚀 registration() called 1");
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
+
+        if (!mounted) return; // ✅ Prevents crash if widget is disposed
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          (SnackBar(
+            backgroundColor: Colors.greenAccent,
+            content: Text(
+              "Registered Successfully",
+              style: TextStyle(fontSize: 20.0),
+            ),
+          )),
+        );
+        print("🚀 registration() called 2");
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => BottomNav()));
+      } on FirebaseException catch (e) {
+        print("❌ FirebaseAuthException: ${e.code} - ${e.message}");
+        if (!mounted) return; // ✅ Check again before using context
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: Text(
+                "Password Provided is too weak",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          );
+        } else if (e.code == "email-already-in-use") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: Text(
+                "Account already existed",
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,70 +124,106 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 30),
-                          Text(
-                            "Sign Up",
-                            style: AppWidget.headerlineTextFeildStyle(),
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Name',
-                              hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                              prefixIcon: Icon(Icons.person_2_outlined),
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 30),
+                            Text(
+                              "Sign Up",
+                              style: AppWidget.headerlineTextFeildStyle(),
                             ),
-                          ),
-                          SizedBox(height: 30),
-                          TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Email',
-                              hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                              prefixIcon: Icon(Icons.email_outlined),
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: 'Password',
-                              hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                              prefixIcon: Icon(Icons.password_outlined),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Container(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              "Forgot Password?",
-                              style: AppWidget.semiBoldTextFeildStyle(),
-                            ),
-                          ),
-                          SizedBox(height: 80),
-                          Material(
-                            elevation: 5.0,
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.circular(20),
+                            TextFormField(
+                              controller: namecontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter name';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Name',
+                                hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                prefixIcon: Icon(Icons.person_2_outlined),
                               ),
-                              child: Center(
-                                child: Text(
-                                  "SIGN UP",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontFamily: 'Rubik',
-                                    fontWeight: FontWeight.bold,
+                            ),
+                            SizedBox(height: 30),
+                            TextFormField(
+                              controller: emailcontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter E-mail';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Email',
+                                hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                prefixIcon: Icon(Icons.email_outlined),
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            TextFormField(
+                              controller: passwordcontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                return null;
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                hintText: 'Password',
+                                hintStyle: AppWidget.semiBoldTextFeildStyle(),
+                                prefixIcon: Icon(Icons.password_outlined),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "Forgot Password?",
+                                style: AppWidget.semiBoldTextFeildStyle(),
+                              ),
+                            ),
+                            SizedBox(height: 80),
+                            GestureDetector(
+                              onTap: () async {
+                                if (_formkey.currentState!.validate()) {
+                                  setState(() {
+                                    email = emailcontroller.text;
+                                    name = namecontroller.text;
+                                    password = passwordcontroller.text;
+                                  });
+                                  registration();
+                                }
+                              },
+                              child: Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "SIGN UP",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontFamily: 'Rubik',
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

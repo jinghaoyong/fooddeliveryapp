@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "853489306682",
+    "project_id": "zenshop-f18f4",
+    "storage_bucket": "zenshop-f18f4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853489306682:android:31b9a1a2bef31adcbc3903",
+        "android_client_info": {
+          "package_name": "com.example.fooddeliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853489306682-npk7cg784e4f2s2m9nqojfqfrmte9e6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9AZAWMWUpvgVsl7RNBq3JxKt7JNkr5kM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853489306682-npk7cg784e4f2s2m9nqojfqfrmte9e6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

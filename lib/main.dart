@@ -1,11 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:fooddeliveryapp/pages/bottomnav.dart';
-import 'package:fooddeliveryapp/pages/home.dart';
-import 'package:fooddeliveryapp/pages/login.dart';
 import 'package:fooddeliveryapp/pages/onboard.dart';
-import 'package:fooddeliveryapp/pages/signup.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyA-650lvam1pCbz6Klhu7xwc97aHWbtdqc",
+      authDomain: "zenshop-f18f4.firebaseapp.com",
+      projectId: "zenshop-f18f4",
+      storageBucket: "zenshop-f18f4.firebasestorage.app",
+      messagingSenderId: "853489306682",
+      appId: "1:853489306682:web:49437131439e5b77bc3903",
+      measurementId: "G-TFB2C5FR8F",
+    ),
+  );
   runApp(const MyApp());
 }
 
